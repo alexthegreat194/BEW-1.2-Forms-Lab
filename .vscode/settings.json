@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "books_stuff",
+            "database": "${workspaceFolder:BEW-1.2-Forms-Lab}/books_app/database.db"
+        }
+    ]
+}

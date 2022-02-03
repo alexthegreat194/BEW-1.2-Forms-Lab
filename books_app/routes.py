@@ -44,26 +44,45 @@ def create_book():
 @main.route('/create_author', methods=['GET', 'POST'])
 def create_author():
     # TODO: Make an AuthorForm instance
+    form = AuthorForm()
 
     # TODO: If the form was submitted and is valid, create a new Author object
     # and save to the database, then flash a success message to the user and
     # redirect to the homepage
+    if form.validate_on_submit():
+        new_author = Author(
+            name=form.author_name.data,
+            biography=form.author_biography.data
+        )
+        db.session.add(new_author)
+        db.session.commit()
+    
+        flash('New Author was created successfully.')
+        return redirect(url_for('main.homepage'))
 
     # TODO: Send the form object to the template, and use it to render the form
     # fields
-    return render_template('create_author.html')
+    return render_template('create_author.html', form=form)
 
 @main.route('/create_genre', methods=['GET', 'POST'])
 def create_genre():
     # TODO: Make a GenreForm instance
+    form = GenreForm()
 
     # TODO: If the form was submitted and is valid, create a new Genre object
     # and save to the database, then flash a success message to the user and
     # redirect to the homepage
+    if form.validate_on_submit():
+        new_genre = Genre(
+            name = form.genre.data
+        )
+        db.session.add(new_genre)
+        db.session.commit()
+        return redirect(url_for('main.homepage'))
 
     # TODO: Send the form object to the template, and use it to render the form
     # fields
-    return render_template('create_genre.html')
+    return render_template('create_genre.html', form=form)
 
 @main.route('/create_user', methods=['GET', 'POST'])
 def create_user():
